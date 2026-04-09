@@ -4,12 +4,19 @@ import org.example.User;
 
 public class Aquapark extends Services implements Purchasable {
 
-    public Aquapark(double price, boolean isAvailable, int time) {
-        super(price, isAvailable, time);
+
+    public Aquapark() {
+        this.price = 15.00;
+        this.availableSpots = 90;
     }
 
     @Override
-    public void buy(User user, int time) {
+    public void start(User user) {
+        availableSpots--;
+    }
 
+    @Override
+    public void finish(User user) {
+        availableSpots++;
     }
 }

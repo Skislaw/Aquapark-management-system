@@ -9,12 +9,18 @@ import org.example.User;
 @Setter
 public class SportsSwimmingPool extends Services implements Purchasable {
 
-    public SportsSwimmingPool(double price, boolean isAvailable, int time) {
-        super(price, isAvailable, time);
+    public SportsSwimmingPool() {
+        this.price = 20;
+        this.availableSpots = 120;
     }
 
     @Override
-    public void buy(User user, int time) {
+    public void start(User user) {
+        availableSpots--;
+    }
 
+    @Override
+    public void finish(User user) {
+        availableSpots++;
     }
 }

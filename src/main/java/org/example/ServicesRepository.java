@@ -7,12 +7,17 @@ import org.example.Buyable.SportsSwimmingPool;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Data
 public class ServicesRepository {
     //a "database" class storing services data
+    private Aquapark aquapark = new Aquapark();
+    private SportsSwimmingPool sportsSwimmingPool = new SportsSwimmingPool();
+    private List<Purchasable> services = new ArrayList<>();
 
-    private final List<Purchasable> purchasableList = new ArrayList<>();
-    private final List<Aquapark> aquaparkList = new ArrayList<>();
-    private final List<SportsSwimmingPool> sportsSwimmingPoolList = new ArrayList<>();
+    private void addServices() {
+        services.add(aquapark);
+        services.add(sportsSwimmingPool);
+    }
 }

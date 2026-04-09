@@ -6,5 +6,6 @@ public interface Purchasable {
     //An interface for different services
     //All subclasses represent one space on each service
 
-    void buy(User user, int time);
+    void start(User user);
+    void finish(User user);
 }

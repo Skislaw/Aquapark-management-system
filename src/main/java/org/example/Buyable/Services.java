@@ -2,11 +2,12 @@ package org.example.Buyable;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
+@NoArgsConstructor
 @AllArgsConstructor
 public abstract class Services {
-    private double price;
-    private boolean isAvailable;
-    private int time;
+    protected double price;
+    protected int availableSpots;
 }
