@@ -13,6 +13,4 @@ public class UserModel {
     private final String surname;
     private final int age;
     private int usedServices = 0;
-    private LocalTime startTime;
-    private LocalTime finishTime;
 }

@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
-import java.util.Optional;
 
 @AllArgsConstructor
 public class BusinessService {
@@ -15,32 +14,23 @@ public class BusinessService {
         return usersRepository.addUser(userModel);
     }
 
-    public Optional<UserModel> getUserById(int id) {
-         return usersRepository.findUserById(id);
+    public ServiceModel addService(ServiceModel serviceModel) {
+        return servicesRepository.addService(serviceModel);
     }
 
-    public String startService(ServiceModel serviceModel, int id) {
-        Optional<UserModel> optionalUser = usersRepository.findUserById(id);
+    public void startService(UserModel userModel, ServiceModel serviceModel) {
+        LocalTime startTime = LocalTime.now();
 
-        if (optionalUser.isEmpty()) {
-            return "User not found";
-        }
-
-        UserModel userModel = optionalUser.orElse(null);
-        userModel.setStartTime(LocalTime.now());
-
-        servicesRepository.start(serviceModel);
-        usersRepository.start(userModel);
-        return "Service has been purchased.";
+        ServiceUsage serviceUsage = new ServiceUsage(userModel, serviceModel, startTime);
     }
 
-    public String finishService(ServiceModel serviceModel, UserModel userModel) {
-        LocalTime startTime = userModel.getStartTime();
+    public float finishService(ServiceUsage serviceUsage, UserModel userModel) {
+        LocalTime startTime = serviceUsage.getStartTime();
         LocalTime finishTime = LocalTime.now();
-        userModel.setFinishTime(finishTime);
+        serviceUsage.setFinishTime(finishTime);
+        ServiceModel serviceModel = serviceUsage.getServiceModel();
 
         long timeDuration = ChronoUnit.MINUTES.between(startTime, finishTime);
-        float price = timeDuration * serviceModel.getPrice();
-        return "Final price: " + price;
+        return timeDuration * serviceModel.getPrice();
     }
 }

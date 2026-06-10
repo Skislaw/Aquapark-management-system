@@ -1,6 +1,5 @@
 package org.example;
 
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -17,14 +16,17 @@ public class UsersRepository {
         return userModel;
     }
 
-    public Optional<UserModel> findUserById(int id) {
+
+    public UserModel removeUser(UserModel userModel) {
+        usersList.remove(userModel);
+        return userModel;
+    }
+
+    public UserModel findUserById(int id) {
         return usersList.stream()
                 .filter(u -> u.getId() == id)
-                .findFirst();
-    }
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("User not found"));
 
-    public void start(UserModel userModel) {
-        userModel.setStartTime(LocalTime.now());
+        }
     }
-
-}

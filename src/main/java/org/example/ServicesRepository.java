@@ -7,25 +7,27 @@ import java.util.List;
 import java.util.Optional;
 
 @Data
-public class ServicesRepository{
+public class ServicesRepository {
     //a "database" class storing services data
+
     private List<ServiceModel> servicesList = new ArrayList<>();
     private int nextId = 0;
 
-    private ServiceModel addServices(ServiceModel serviceModel) {
+    public ServiceModel addService(ServiceModel serviceModel) {
         serviceModel.setId(nextId++);
         servicesList.add(serviceModel);
         return serviceModel;
     }
 
-    public Optional<ServiceModel> findUserById(int id) {
+    public ServiceModel removeService(ServiceModel serviceModel) {
+        servicesList.remove(serviceModel);
+        return serviceModel;
+    }
+
+    public ServiceModel findServiceById(int id) {
         return servicesList.stream()
                 .filter(u -> u.getId() == id)
-                .findFirst();
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Service not found"));
     }
-
-    public void start(ServiceModel serviceModel) {
-        serviceModel.setFree(false);
-    }
-
 }
