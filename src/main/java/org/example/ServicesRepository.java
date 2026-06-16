@@ -2,32 +2,48 @@ package org.example;
 
 import lombok.Data;
 
+import javax.swing.text.html.Option;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Data
 public class ServicesRepository {
-    //a "database" class storing services data
+    //a "database" class storing data of in-use-services
 
-    private List<ServiceModel> servicesList = new ArrayList<>();
+    private List<ServiceType> servicesList = new ArrayList<>();
     private int nextId = 0;
 
-    public ServiceModel addService(ServiceModel serviceModel) {
-        serviceModel.setId(nextId++);
-        servicesList.add(serviceModel);
-        return serviceModel;
+    public ServiceType addService(ServiceType serviceType) {
+        serviceType.setId(nextId++);
+        servicesList.add(serviceType);
+        return serviceType;
     }
 
-    public ServiceModel removeService(ServiceModel serviceModel) {
-        servicesList.remove(serviceModel);
-        return serviceModel;
+    public ServiceType removeService(ServiceType serviceType) {
+        servicesList.remove(serviceType);
+        return serviceType;
     }
 
-    public ServiceModel findServiceById(int id) {
+    public Optional<ServiceType> findServiceById(int id) {
         return servicesList.stream()
                 .filter(u -> u.getId() == id)
-                .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("Service not found"));
+                .findFirst();
     }
+
+    public Optional<ServiceType> findServiceByName(String name) {
+        return servicesList.stream()
+                .filter(u -> u.getName().equals(name))
+                .findFirst();
+    }
+
+    void asd(String name) {
+        try {
+            findServiceByName(name);
+        } catch (RuntimeException e) {
+            System.out.println("błont.");
+        }
+    }
+
 }
+

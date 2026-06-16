@@ -8,8 +8,9 @@ import java.time.LocalTime;
 @Data
 @RequiredArgsConstructor
 public class ServiceUsage {
-    private final UserModel userModel;
-    private final ServiceModel serviceModel;
+    private int id;
+    private final User user; //user of this particular service
+    private final ServiceType serviceType; //defines what type of service it is
     private final LocalTime startTime;
     private LocalTime finishTime;
     private float finalPrice;
